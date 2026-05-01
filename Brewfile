@@ -11,6 +11,7 @@
 brew "helix"            # text editor
 brew "yazi"             # file manager
 brew "starship"         # cross-shell prompt
+brew "tmux"             # terminal multiplexer (powers `dashboard`)
 
 # ── Yazi runtime deps for previews ───────────────────────────────────
 brew "ffmpeg"           # video thumbnails

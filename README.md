@@ -87,6 +87,21 @@ mpv --vo=tct --really-quiet some.mp4   # video in the terminal
 aichat                                 # set OPENAI_API_KEY first
 ```
 
+### Dashboard
+
+The signature "all-in-one screen" view from the video — a tmux session
+with btop on the left, fastfetch + weather stacked on the right, and
+Hacker News across the bottom:
+
+```bash
+dashboard          # launch (or re-attach if already running)
+# Detach without killing it:  Ctrl-b d
+# Kill current pane:           Ctrl-b x
+```
+
+The default city for the weather pane is Delhi. Override with
+`WEATHER_CITY=Mumbai dashboard`.
+
 ### aichat
 
 `aichat` reads `OPENAI_API_KEY` from the environment. Add to a private
@@ -118,6 +133,8 @@ terminal-mac-setup/
 ├── uninstall.sh            # reverses install.sh
 ├── Brewfile                # brew bundle target
 ├── .gitignore
+├── scripts/
+│   └── dashboard.sh        # the 4-pane tmux dashboard launcher
 └── config/                 # copied to ~/.config/
     ├── ghostty/config
     ├── helix/{config.toml, languages.toml}
@@ -125,7 +142,9 @@ terminal-mac-setup/
     ├── btop/btop.conf
     ├── fastfetch/config.jsonc
     ├── newsboat/{config, urls}
-    └── aichat/config.yaml
+    ├── tmux/tmux.conf
+    ├── aichat/config.yaml
+    └── starship.toml
 ```
 
 ---

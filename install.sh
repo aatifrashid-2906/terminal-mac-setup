@@ -82,7 +82,7 @@ if [ "$NO_CONFIGS" = 1 ]; then
   warn "--no-configs: skipping config copy and shell wiring"
 else
   say "Backing up existing configs (if any)"
-  for tool in ghostty helix yazi btop fastfetch newsboat aichat; do
+  for tool in ghostty helix yazi btop fastfetch newsboat aichat tmux; do
     src="$REPO_DIR/config/$tool"
     dst="$CONFIG_DIR/$tool"
     [ -d "$src" ] || continue
@@ -105,6 +105,13 @@ else
     run "mkdir -p '$CONFIG_DIR'"
     run "cp '$REPO_DIR/config/starship.toml' '$CONFIG_DIR/starship.toml'"
     ok "  starship.toml installed"
+  fi
+
+  # Dashboard launcher → ~/.local/bin/tms-dashboard
+  if [ -f "$REPO_DIR/scripts/dashboard.sh" ]; then
+    run "mkdir -p '$HOME/.local/bin'"
+    run "install -m 0755 '$REPO_DIR/scripts/dashboard.sh' '$HOME/.local/bin/tms-dashboard'"
+    ok "  dashboard launcher installed (~/.local/bin/tms-dashboard)"
   fi
 
   # ── shell wiring (zsh) ──────────────────────────────────────────────
@@ -130,6 +137,9 @@ command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
 # starship: prompt
 command -v starship >/dev/null && eval "$(starship init zsh)"
+
+# dashboard: 4-pane tmux dashboard (fastfetch + btop + weather + HN)
+alias dashboard="$HOME/.local/bin/tms-dashboard"
 
 # fzf keybindings (^R history, ^T file picker)
 [ -f "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.zsh" ] && \
