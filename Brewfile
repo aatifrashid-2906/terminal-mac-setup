@@ -10,6 +10,7 @@
 
 brew "helix"            # text editor
 brew "yazi"             # file manager
+brew "starship"         # cross-shell prompt
 
 # ── Yazi runtime deps for previews ───────────────────────────────────
 brew "ffmpeg"           # video thumbnails

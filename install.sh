@@ -96,6 +96,17 @@ else
     ok "  $tool config installed"
   done
 
+  # Single-file: starship.toml
+  if [ -f "$REPO_DIR/config/starship.toml" ]; then
+    if [ -e "$CONFIG_DIR/starship.toml" ]; then
+      run "mv '$CONFIG_DIR/starship.toml' '$CONFIG_DIR/starship.toml.bak.$TS'"
+      ok "  starship.toml → backed up"
+    fi
+    run "mkdir -p '$CONFIG_DIR'"
+    run "cp '$REPO_DIR/config/starship.toml' '$CONFIG_DIR/starship.toml'"
+    ok "  starship.toml installed"
+  fi
+
   # ── shell wiring (zsh) ──────────────────────────────────────────────
   ZSHRC="$HOME/.zshrc"
   MARKER_BEGIN="# >>> terminal-mac-setup >>>"
@@ -116,6 +127,9 @@ export VISUAL=hx
 
 # zoxide: smart cd
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+# starship: prompt
+command -v starship >/dev/null && eval "$(starship init zsh)"
 
 # fzf keybindings (^R history, ^T file picker)
 [ -f "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.zsh" ] && \

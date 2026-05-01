@@ -4,9 +4,9 @@
 
 # ── Appearance ───────────────────────────────────────────────────────
 theme = tokyonight
-font-family = JetBrainsMono Nerd Font
-font-family-bold = JetBrainsMono Nerd Font
-font-family-italic = JetBrainsMono Nerd Font Italic
+font-family = JetBrainsMono Nerd Font Mono
+font-family-bold = JetBrainsMono Nerd Font Mono
+font-family-italic = JetBrainsMono Nerd Font Mono
 font-size = 14
 font-thicken = true
 
