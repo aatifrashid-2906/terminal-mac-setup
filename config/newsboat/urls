@@ -1,0 +1,29 @@
+# Newsboat feeds — Reddit edition
+# Reddit serves RSS at https://www.reddit.com/r/<sub>/.rss
+# (and /top/.rss?t=day for top-of-day)
+# Press `r` in newsboat to refresh, `R` to refresh all.
+
+# ── Tech / dev ──────────────────────────────────────────────────────
+https://www.reddit.com/r/programming/.rss     "~r/programming"   tech
+https://www.reddit.com/r/commandline/.rss     "~r/commandline"   tech
+https://www.reddit.com/r/linux/.rss           "~r/linux"         tech
+https://www.reddit.com/r/MacOS/.rss           "~r/MacOS"         tech
+https://www.reddit.com/r/macapps/.rss         "~r/macapps"       tech
+
+# ── Terminal-life ───────────────────────────────────────────────────
+https://www.reddit.com/r/unixporn/.rss        "~r/unixporn"      ricing
+https://www.reddit.com/r/neovim/.rss          "~r/neovim"        ricing
+https://www.reddit.com/r/HelixEditor/.rss     "~r/HelixEditor"   ricing
+
+# ── AI / ML ─────────────────────────────────────────────────────────
+https://www.reddit.com/r/LocalLLaMA/.rss      "~r/LocalLLaMA"    ai
+https://www.reddit.com/r/ClaudeAI/.rss        "~r/ClaudeAI"      ai
+https://www.reddit.com/r/OpenAI/.rss          "~r/OpenAI"        ai
+
+# ── News / general ──────────────────────────────────────────────────
+https://www.reddit.com/r/worldnews/top/.rss?t=day   "~r/worldnews (top)"   news
+https://www.reddit.com/r/india/top/.rss?t=day       "~r/india (top)"       news
+https://www.reddit.com/r/technology/top/.rss?t=day  "~r/technology (top)"  news
+
+# ── Hacker News (bonus) ─────────────────────────────────────────────
+https://hnrss.org/frontpage    "Hacker News — front page"   hn

@@ -1,0 +1,25 @@
+# macOS noise
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+Icon?
+
+# Editor noise
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Backups created by install.sh / uninstall.sh
+*.bak.*
+
+# aichat sessions / state (generated)
+config/aichat/sessions/
+config/aichat/messages.bin
+
+# Ghostty runtime artefacts
+config/ghostty/state/
+
+# Anything starting with `_local_`
+_local_*

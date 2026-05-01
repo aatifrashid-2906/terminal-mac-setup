@@ -1,0 +1,37 @@
+# Helix languages.toml — terminal-mac-setup
+# Format-on-save settings for common languages.
+
+[[language]]
+name = "python"
+language-servers = ["pyright"]
+auto-format = true
+formatter = { command = "black", args = ["-q", "-"] }
+
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "babel"] }
+
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "json"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "json"] }
+
+[[language]]
+name = "markdown"
+auto-format = false
+soft-wrap = { enable = true }
+
+[[language]]
+name = "bash"
+auto-format = false
+
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["fmt", "-"] }

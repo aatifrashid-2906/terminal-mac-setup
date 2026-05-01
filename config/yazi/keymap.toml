@@ -1,0 +1,14 @@
+# Yazi keymap — terminal-mac-setup
+# Defaults are good; add a few quality-of-life bindings.
+
+[manager]
+prepend_keymap = [
+  # zoxide-powered jump (requires the `zoxide` plugin or external)
+  { on = ["g", "z"], run = 'shell "z $(zoxide query -i)" --confirm', desc = "Jump via zoxide" },
+  # Open in Helix in a new pane
+  { on = ["E"],      run = 'shell "hx \"$0\"" --block', desc = "Edit in Helix (block)" },
+  # Copy file's absolute path to clipboard
+  { on = ["c", "p"], run = 'shell "echo -n \"$0\" | pbcopy"', desc = "Copy path" },
+  # Quick toggle hidden files
+  { on = ["."],      run = "hidden toggle", desc = "Toggle hidden files" },
+]

@@ -1,0 +1,40 @@
+# aichat config — terminal-mac-setup
+# https://github.com/sigoden/aichat
+#
+# IMPORTANT: API keys are NOT stored here. Set them as env vars:
+#   export OPENAI_API_KEY="sk-..."
+# (add the line to ~/.zshrc.local or to your shell init of choice)
+# aichat reads OPENAI_API_KEY automatically.
+
+# ── Default behaviour ────────────────────────────────────────────────
+model: openai:gpt-4o
+temperature: null
+top_p: null
+stream: true
+save: true
+keybindings: emacs
+editor: hx
+wrap: auto
+wrap_code: false
+highlight: true
+light_theme: false
+save_session: null
+function_calling: true
+
+# Persisted history goes here
+# data_dir: ~/.config/aichat   # default
+
+# ── Clients ──────────────────────────────────────────────────────────
+clients:
+  - type: openai
+    # OPENAI_API_KEY env var is picked up automatically
+    # Uncomment to use a different base URL (e.g. Azure, OpenRouter):
+    # api_base: https://api.openai.com/v1
+
+  # Add more if you want — uncomment and supply the matching env var.
+  # - type: claude
+  #   # set ANTHROPIC_API_KEY in your shell
+  # - type: gemini
+  #   # set GEMINI_API_KEY
+  # - type: ollama
+  #   api_base: http://localhost:11434

@@ -1,0 +1,42 @@
+# Newsboat config — terminal-mac-setup
+# https://newsboat.org/releases/2.36/docs/newsboat.html
+
+auto-reload yes
+reload-time 60
+reload-threads 8
+download-retries 3
+download-timeout 15
+keep-articles-days 30
+max-items 100
+notify-program "/usr/bin/osascript -e 'display notification \"%n new\" with title \"Newsboat\"'"
+text-width 100
+
+# Vim-ish keybindings
+bind-key j down
+bind-key k up
+bind-key J next-feed
+bind-key K prev-feed
+bind-key g home
+bind-key G end
+bind-key l open
+bind-key h quit
+
+# Show feed-titles, not URLs
+show-read-feeds no
+show-read-articles yes
+feed-sort-order firsttag-asc
+
+# ── Tokyo Night-ish colours ─────────────────────────────────────────
+color background          default   default
+color listnormal          default   default
+color listnormal_unread   color111  default   bold
+color listfocus           color235  color111
+color listfocus_unread    color235  color111  bold
+color info                color219  color235
+color article             default   default
+
+# Highlight URLs / quotes / headings inside articles
+highlight article "^Feed:.*$"   color222 default bold
+highlight article "^Title:.*$"  color222 default bold
+highlight article "^Author:.*$" color219 default bold
+highlight article "https?://[^ ]+" color75 default underline

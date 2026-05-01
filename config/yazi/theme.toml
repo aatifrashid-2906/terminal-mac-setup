@@ -1,0 +1,92 @@
+# Yazi theme — Tokyo Night-ish, terminal-mac-setup
+# https://yazi-rs.github.io/docs/configuration/theme
+
+[manager]
+cwd     = { fg = "#7aa2f7" }
+
+hovered         = { fg = "#1a1b26", bg = "#7aa2f7" }
+preview_hovered = { underline = true }
+
+find_keyword  = { fg = "#e0af68", italic = true }
+find_position = { fg = "#f7768e", bg = "reset", italic = true }
+
+marker_selected   = { fg = "#9ece6a", bg = "#9ece6a" }
+marker_copied     = { fg = "#e0af68", bg = "#e0af68" }
+marker_cut        = { fg = "#f7768e", bg = "#f7768e" }
+
+tab_active   = { fg = "#1a1b26", bg = "#7aa2f7" }
+tab_inactive = { fg = "#a9b1d6", bg = "#24283b" }
+tab_width    = 1
+
+count_copied   = { fg = "#1a1b26", bg = "#e0af68" }
+count_cut      = { fg = "#1a1b26", bg = "#f7768e" }
+count_selected = { fg = "#1a1b26", bg = "#9ece6a" }
+
+border_symbol = "│"
+border_style  = { fg = "#414868" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#414868", bg = "#414868" }
+
+mode_normal = { fg = "#1a1b26", bg = "#7aa2f7", bold = true }
+mode_select = { fg = "#1a1b26", bg = "#9ece6a", bold = true }
+mode_unset  = { fg = "#1a1b26", bg = "#bb9af7", bold = true }
+
+progress_label  = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#7aa2f7", bg = "#414868" }
+progress_error  = { fg = "#f7768e", bg = "#414868" }
+
+permissions_t = { fg = "#7aa2f7" }
+permissions_r = { fg = "#e0af68" }
+permissions_w = { fg = "#f7768e" }
+permissions_x = { fg = "#9ece6a" }
+permissions_s = { fg = "#a9b1d6" }
+
+[input]
+border   = { fg = "#7aa2f7" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[select]
+border   = { fg = "#7aa2f7" }
+active   = { fg = "#bb9af7" }
+inactive = {}
+
+[tasks]
+border  = { fg = "#7aa2f7" }
+title   = {}
+hovered = { underline = true }
+
+[which]
+mask            = { bg = "#24283b" }
+cand            = { fg = "#7dcfff" }
+rest            = { fg = "#9aa5ce" }
+desc            = { fg = "#bb9af7" }
+separator       = "  "
+separator_style = { fg = "#414868" }
+
+[help]
+on      = { fg = "#bb9af7" }
+exec    = { fg = "#7dcfff" }
+desc    = { fg = "#a9b1d6" }
+hovered = { bg = "#414868", bold = true }
+footer  = { fg = "#414868", bg = "#1a1b26" }
+
+[filetype]
+rules = [
+  # Images
+  { mime = "image/*", fg = "#7dcfff" },
+  # Media
+  { mime = "{audio,video}/*", fg = "#bb9af7" },
+  # Archives
+  { mime = "application/{,g}zip", fg = "#e0af68" },
+  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "#e0af68" },
+  # Documents
+  { mime = "application/{pdf,doc,rtf}", fg = "#9ece6a" },
+  # Fallback
+  { name = "*",  fg = "#a9b1d6" },
+  { name = "*/", fg = "#7aa2f7" },
+]
