@@ -80,7 +80,7 @@ btop                                   # resource monitor
 weather                                # Delhi
 weather london                         # any city
 newsboat                               # press R to refresh
-circumflex                             # Hacker News
+clx                                    # Hacker News (circumflex)
 ticker                                 # stocks (edit ~/.config/.ticker.yaml)
 chafa some-image.jpg                   # ANSI art
 mpv --vo=tct --really-quiet some.mp4   # video in the terminal

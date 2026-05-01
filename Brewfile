@@ -28,7 +28,8 @@ brew "btop"             # resource monitor
 brew "fastfetch"        # system info
 brew "kew"              # music player
 brew "newsboat"         # rss/atom reader
-brew "ticker"           # stock prices
+tap  "achannarasappa/tap"
+brew "achannarasappa/tap/ticker"  # stock prices
 
 # ── Apps ─────────────────────────────────────────────────────────────
 brew "aichat"           # multi-LLM CLI (OpenAI/Claude/Gemini/Ollama)

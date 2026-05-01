@@ -154,7 +154,7 @@ cat <<'EOF'
   5. btop                               # resource monitor
   6. weather                            # wttr.in for Delhi
   7. aichat                             # add OPENAI_API_KEY first
-  8. circumflex                         # Hacker News
+  8. clx                                # Hacker News (circumflex)
   9. ticker                             # stocks (edit ~/.config/.ticker.yaml)
  10. mpv --vo=tct --really-quiet FILE   # video in the terminal
 ────────────────────────────────────────────────────────────

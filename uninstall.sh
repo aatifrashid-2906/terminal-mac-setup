@@ -18,7 +18,7 @@ CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 # Tools introduced by this setup that are safe to uninstall.
 # (We deliberately don't touch ffmpeg/jq/fzf/zoxide/fd/ripgrep/imagemagick
 #  because you likely had/want them anyway.)
-TOOLS=(helix yazi btop fastfetch kew newsboat ticker aichat chafa circumflex mpv sevenzip poppler resvg)
+TOOLS=(helix yazi btop fastfetch kew newsboat achannarasappa/tap/ticker aichat chafa circumflex mpv sevenzip poppler resvg)
 
 say "Uninstalling brew packages"
 for t in "${TOOLS[@]}"; do
