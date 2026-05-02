@@ -33,6 +33,11 @@ confirm-close-surface = false
 shell-integration = detect
 shell-integration-features = cursor,sudo,title
 
+# ── Startup ──────────────────────────────────────────────────────────
+# Every new Ghostty window opens with the dir picker → dashboard.
+# Comment out to get a plain shell instead.
+command = /bin/zsh -ic "tms-launcher"
+
 # ── Keybinds ─────────────────────────────────────────────────────────
 keybind = cmd+t=new_tab
 keybind = cmd+w=close_surface

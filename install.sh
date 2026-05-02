@@ -117,11 +117,18 @@ else
     ok "  ~/.ticker.yaml installed (edit watchlist)"
   fi
 
-  # Dashboard launcher → ~/.local/bin/tms-dashboard
-  if [ -f "$REPO_DIR/scripts/dashboard.sh" ]; then
+  # Launcher / dashboard / sessions scripts → ~/.local/bin
+  if [ -d "$REPO_DIR/scripts" ]; then
     run "mkdir -p '$HOME/.local/bin'"
-    run "install -m 0755 '$REPO_DIR/scripts/dashboard.sh' '$HOME/.local/bin/tms-dashboard'"
-    ok "  dashboard launcher installed (~/.local/bin/tms-dashboard)"
+    [ -f "$REPO_DIR/scripts/launcher.sh" ] && \
+      run "install -m 0755 '$REPO_DIR/scripts/launcher.sh' '$HOME/.local/bin/tms-launcher'" && \
+      ok "  tms-launcher installed (Ghostty startup dir picker)"
+    [ -f "$REPO_DIR/scripts/dashboard.sh" ] && \
+      run "install -m 0755 '$REPO_DIR/scripts/dashboard.sh' '$HOME/.local/bin/tms-dashboard'" && \
+      ok "  tms-dashboard installed"
+    [ -f "$REPO_DIR/scripts/sessions.sh" ] && \
+      run "install -m 0755 '$REPO_DIR/scripts/sessions.sh' '$HOME/.local/bin/tms-sessions'" && \
+      ok "  tms-sessions installed (recent Claude/Codex picker)"
   fi
 
   # ── shell wiring (zsh) ──────────────────────────────────────────────
