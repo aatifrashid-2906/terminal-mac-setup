@@ -36,9 +36,28 @@ _relative_time() {
 }
 
 _decode_claude_path() {
-  # Claude encodes "/Users/apple/d" as "-Users-apple-d"
-  # Just replace every "-" with "/" — the leading "-" becomes the leading "/"
-  echo "${1//-//}"
+  # Claude encodes paths by replacing "/" with "-", which is ambiguous when
+  # a real path contains hyphens (e.g. /Users/apple/etl-connector-backend
+  # encodes the same as /Users/apple/etl/connector/backend).
+  #
+  # Strategy: try variants from "most hyphens preserved" to "all slashes",
+  # return the first variant that exists on disk. Falls back to all-slashes.
+  python3 - "$1" <<'PY'
+import os, sys
+encoded = sys.argv[1]                       # e.g. "-Users-apple-etl-connector-backend"
+parts = encoded.lstrip('-').split('-')      # ["Users","apple","etl","connector","backend"]
+n = len(parts)
+# Try splits from most → fewest leading slashes, taking the first hit on disk.
+for k in range(n, 0, -1):
+    head = '/' + '/'.join(parts[:k-1]) if k > 1 else ''
+    leaf = '-'.join(parts[k-1:])
+    candidate = (head + ('/' if head else '/')) + leaf
+    if os.path.isdir(candidate):
+        print(candidate); break
+else:
+    # Nothing matched (project deleted?) — show the most-slashes guess
+    print('/' + '/'.join(parts))
+PY
 }
 
 # ── Build the unified session list ──────────────────────────────
