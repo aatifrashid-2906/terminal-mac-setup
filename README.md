@@ -97,7 +97,7 @@ You get a tmux session with **two tabs** ("windows" in tmux-speak):
 
 | Tab | Name      | Contents                                              |
 | --- | --------- | ----------------------------------------------------- |
-| 1   | `ai`      | Claude Code (full-screen)                             |
+| 1   | `ai`      | Claude (left) · Codex (right) — side-by-side          |
 | 2   | `system`  | btop (left) · fastfetch + yazi stacked (right)        |
 
 **Switch between tabs:**

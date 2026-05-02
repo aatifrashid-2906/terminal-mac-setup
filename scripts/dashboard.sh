@@ -6,11 +6,12 @@
 #   ╠══════════════════════════════════════════════════╣
 #
 #   Tab 1 — "ai":
-#   ┌──────────────────────────────────────────────────┐
-#   │                                                  │
-#   │             Claude Code (full screen)            │
-#   │                                                  │
-#   └──────────────────────────────────────────────────┘
+#   ┌──────────────────────┬───────────────────────────┐
+#   │                      │                           │
+#   │       Claude         │         Codex             │
+#   │     (Anthropic)      │       (OpenAI)            │
+#   │                      │                           │
+#   └──────────────────────┴───────────────────────────┘
 #
 #   Tab 2 — "system":
 #   ┌────────────────────────┬──────────────────────────┐
@@ -44,8 +45,10 @@ fi
 
 _split() { tmux split-window -P -F '#{pane_id}' "$@"; }
 
-# ── Window 1: "ai"  (just Claude) ───────────────────────────────
+# ── Window 1: "ai"  (Claude | Codex) ────────────────────────────
 tmux new-session -d -s "$SESSION" -n "ai" -x 280 -y 80 "claude"
+claude_id=$(tmux list-panes -t "$SESSION:ai" -F '#{pane_id}' | head -1)
+codex_id=$(_split -h -p 50 -t "$claude_id" "codex")
 
 # ── Window 2: "system" (btop big-left, fastfetch + yazi right) ──
 tmux new-window -t "$SESSION:" -n "system" "btop"
