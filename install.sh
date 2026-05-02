@@ -107,6 +107,16 @@ else
     ok "  starship.toml installed"
   fi
 
+  # Single-file: ticker config (~/.ticker.yaml — ticker's default path)
+  if [ -f "$REPO_DIR/config/ticker.yaml" ]; then
+    if [ -e "$HOME/.ticker.yaml" ]; then
+      run "mv '$HOME/.ticker.yaml' '$HOME/.ticker.yaml.bak.$TS'"
+      ok "  ~/.ticker.yaml → backed up"
+    fi
+    run "cp '$REPO_DIR/config/ticker.yaml' '$HOME/.ticker.yaml'"
+    ok "  ~/.ticker.yaml installed (edit watchlist)"
+  fi
+
   # Dashboard launcher → ~/.local/bin/tms-dashboard
   if [ -f "$REPO_DIR/scripts/dashboard.sh" ]; then
     run "mkdir -p '$HOME/.local/bin'"
@@ -138,8 +148,15 @@ command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 # starship: prompt
 command -v starship >/dev/null && eval "$(starship init zsh)"
 
-# dashboard: 4-pane tmux dashboard (fastfetch + btop + weather + HN)
+# dashboard: tmux dashboard with 3 AI chats + btop
 alias dashboard="$HOME/.local/bin/tms-dashboard"
+
+# Quick web nav (open in default browser)
+# Override Jira URL by exporting JIRA_URL in ~/.zshrc.local
+alias jira='open "${JIRA_URL:-https://www.atlassian.com/software/jira}"'
+alias mail='open https://mail.google.com'
+alias gcal='open https://calendar.google.com'   # google calendar
+alias gmail='open https://mail.google.com'      # alias of mail
 
 # fzf keybindings (^R history, ^T file picker)
 [ -f "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.zsh" ] && \

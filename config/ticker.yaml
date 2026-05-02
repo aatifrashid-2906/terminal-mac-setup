@@ -1,0 +1,21 @@
+# ticker config — terminal-mac-setup
+# Default file location (per ticker docs): ~/.config/.ticker.yaml
+# Override with: ticker --config /path/to/file
+#
+# Edit `watchlist` with the symbols you actually care about.
+
+show-summary: true
+show-tags: true
+show-fundamentals: false
+show-separator: true
+sort: alpha
+refresh-interval: 5
+
+watchlist:
+  - AAPL
+  - MSFT
+  - GOOG
+  - META
+  - NVDA
+  - TSLA
+  - AMZN

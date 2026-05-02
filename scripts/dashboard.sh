@@ -1,51 +1,47 @@
 #!/usr/bin/env bash
-# dashboard.sh — launch a 4-pane tmux dashboard
+# dashboard.sh — Three AI assistants + compact system monitor
 #
-#   ┌──────────────────────┬──────────────────────┐
-#   │                      │                      │
-#   │       btop           │      fastfetch       │
-#   │  (top — full height) │  (top right)         │
-#   │                      │                      │
-#   │                      ├──────────────────────┤
-#   │                      │  weather (wttr.in)   │
-#   │                      │  refreshes every 10m │
-#   ├──────────────────────┴──────────────────────┤
-#   │  clx (Hacker News TUI)  — bottom full-width │
-#   └─────────────────────────────────────────────┘
+#   ┌──────────────┬──────────────┬──────────────┐
+#   │              │              │              │
+#   │   Claude     │   ChatGPT    │   Gemini     │
+#   │  (Anthropic) │   (codex)    │  (Google)    │
+#   │              │              │              │
+#   ├──────────────┴──────────────┴──────────────┤
+#   │             btop (25 % strip)              │
+#   └────────────────────────────────────────────┘
 #
-# Launch: dashboard       (after install.sh wires the alias)
-# Detach: Ctrl-b d        (the tmux session keeps running)
-# Kill:   Ctrl-b x        (kill current pane)
-# Reattach: dashboard     (re-runs and re-attaches)
-
-set -euo pipefail
+# Each AI pane runs the official CLI for that model.
+# Set the corresponding API key in your shell (~/.zshrc.local works):
+#   export ANTHROPIC_API_KEY=...   (claude — or run `claude /login`)
+#   export OPENAI_API_KEY=...      (codex)
+#   export GEMINI_API_KEY=...      (gemini)
+#
+# Launch:    dashboard
+# Detach:    Ctrl-b d         (session keeps running; assistants keep state)
+# Re-attach: dashboard
+# Zoom one pane to fullscreen: Ctrl-b z   (toggle)
+# Move pane:  Ctrl-b ←/↑/→/↓  or click
 
 SESSION="dashboard"
-WEATHER_CITY="${WEATHER_CITY:-Delhi}"
 
-# If a session is already running, just attach to it.
+# Already running? Just attach.
 if tmux has-session -t "$SESSION" 2>/dev/null; then
   exec tmux attach -t "$SESSION"
 fi
 
-# Build the layout.
-tmux new-session  -d -s "$SESSION" -n "main" "btop"
+_split() { tmux split-window -P -F '#{pane_id}' "$@"; }
 
-# Right column, top: fastfetch on a refresh loop so the window stays alive.
-tmux split-window -h -t "$SESSION:main" \
-  "while true; do clear; fastfetch; sleep 600; done"
+# Create with a comfortable initial size; tmux resizes on client attach.
+tmux new-session -d -s "$SESSION" -n "main" -x 280 -y 80 "claude"
+claude_id=$(tmux list-panes -t "$SESSION:main" -F '#{pane_id}' | head -1)
 
-# Right column, bottom: rolling weather report.
-tmux split-window -v -t "$SESSION:main.2" \
-  "while true; do clear; curl -s \"wttr.in/${WEATHER_CITY}?2qF\"; sleep 600; done"
+# Bottom strip: btop (25 % of total height).
+btop_id=$(_split   -v -p 25 -t "$claude_id" "btop")
 
-# Bottom full-width row: Hacker News (clx).
-tmux select-pane -t "$SESSION:main.1"
-tmux split-window -v -p 25 -t "$SESSION:main.1" "clx"
+# Top row: Claude | Codex | Gemini.
+codex_id=$(_split  -h -p 66 -t "$claude_id" "codex")
+gemini_id=$(_split -h -p 50 -t "$codex_id"  "gemini")
 
-# Resize columns so btop gets ~55 % of width.
-tmux resize-pane -t "$SESSION:main.1" -x 60%
-
-# Focus btop and attach.
-tmux select-pane -t "$SESSION:main.1"
+# Focus Claude (top-left), attach.
+tmux select-pane -t "$claude_id"
 exec tmux attach -t "$SESSION"
