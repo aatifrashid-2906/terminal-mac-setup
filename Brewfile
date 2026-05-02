@@ -12,8 +12,6 @@ brew "helix"            # text editor
 brew "yazi"             # file manager
 brew "starship"         # cross-shell prompt
 brew "tmux"             # terminal multiplexer (powers `dashboard`)
-brew "gemini-cli"       # Google Gemini CLI  (`gemini`)
-cask "codex"            # OpenAI Codex CLI    (`codex`)
 # Note: `claude` (Anthropic Claude Code CLI) is installed separately via
 # https://docs.anthropic.com/en/docs/claude-code/quickstart  — not in brew yet.
 

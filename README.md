@@ -87,20 +87,36 @@ mpv --vo=tct --really-quiet some.mp4   # video in the terminal
 aichat                                 # set OPENAI_API_KEY first
 ```
 
-### Dashboard
-
-The signature "all-in-one screen" view from the video — a tmux session
-with btop on the left, fastfetch + weather stacked on the right, and
-Hacker News across the bottom:
+### Dashboard (two tmux tabs)
 
 ```bash
 dashboard          # launch (or re-attach if already running)
-# Detach without killing it:  Ctrl-b d
-# Kill current pane:           Ctrl-b x
 ```
 
-The default city for the weather pane is Delhi. Override with
-`WEATHER_CITY=Mumbai dashboard`.
+You get a tmux session with **two tabs** ("windows" in tmux-speak):
+
+| Tab | Name      | Contents                                              |
+| --- | --------- | ----------------------------------------------------- |
+| 1   | `ai`      | Claude Code (full-screen)                             |
+| 2   | `system`  | btop (left) · fastfetch + yazi stacked (right)        |
+
+**Switch between tabs:**
+
+| Keys                     | Action                                |
+| ------------------------ | ------------------------------------- |
+| `Ctrl-b` then `1`        | jump to tab 1 (ai)                    |
+| `Ctrl-b` then `2`        | jump to tab 2 (system)                |
+| `Ctrl-b` then `n` / `p`  | next / previous tab                   |
+| Click the tab name       | top status-bar tabs are clickable too |
+
+**Within a tab:**
+
+| Keys                       | Action                                  |
+| -------------------------- | --------------------------------------- |
+| `Ctrl-b` then `←/↑/→/↓`    | move between panes                      |
+| `Ctrl-b` then `z`          | toggle zoom focused pane to fullscreen  |
+| `Ctrl-b` then `d`          | detach (everything keeps running)       |
+| type `dashboard` again     | re-attach                               |
 
 ### aichat
 

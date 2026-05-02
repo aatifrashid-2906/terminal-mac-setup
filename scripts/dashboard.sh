@@ -1,26 +1,39 @@
 #!/usr/bin/env bash
-# dashboard.sh — Three AI assistants + compact system monitor
+# dashboard.sh — Two-tab tmux dashboard
 #
-#   ┌──────────────┬──────────────┬──────────────┐
-#   │              │              │              │
-#   │   Claude     │   ChatGPT    │   Gemini     │
-#   │  (Anthropic) │   (codex)    │  (Google)    │
-#   │              │              │              │
-#   ├──────────────┴──────────────┴──────────────┤
-#   │             btop (25 % strip)              │
-#   └────────────────────────────────────────────┘
+#   ╔══════════════════════════════════════════════════╗
+#   ║  Tab 1: ai      Tab 2: system                    ║   <- the tmux status bar
+#   ╠══════════════════════════════════════════════════╣
 #
-# Each AI pane runs the official CLI for that model.
-# Set the corresponding API key in your shell (~/.zshrc.local works):
-#   export ANTHROPIC_API_KEY=...   (claude — or run `claude /login`)
-#   export OPENAI_API_KEY=...      (codex)
-#   export GEMINI_API_KEY=...      (gemini)
+#   Tab 1 — "ai":
+#   ┌──────────────────────────────────────────────────┐
+#   │                                                  │
+#   │             Claude Code (full screen)            │
+#   │                                                  │
+#   └──────────────────────────────────────────────────┘
 #
-# Launch:    dashboard
-# Detach:    Ctrl-b d         (session keeps running; assistants keep state)
-# Re-attach: dashboard
-# Zoom one pane to fullscreen: Ctrl-b z   (toggle)
-# Move pane:  Ctrl-b ←/↑/→/↓  or click
+#   Tab 2 — "system":
+#   ┌────────────────────────┬──────────────────────────┐
+#   │                        │     fastfetch            │
+#   │         btop           ├──────────────────────────┤
+#   │   (full height)        │       yazi               │
+#   │                        │   (file manager)         │
+#   └────────────────────────┴──────────────────────────┘
+#
+# ─────────────────────────────────────────────────────────
+# SWITCHING TABS / WORKSPACES
+# ─────────────────────────────────────────────────────────
+#   Ctrl-b 1            → jump to tab 1 (ai)
+#   Ctrl-b 2            → jump to tab 2 (system)
+#   Ctrl-b n            → next tab
+#   Ctrl-b p            → previous tab
+#   Click the tab name in the top status bar
+# ─────────────────────────────────────────────────────────
+# OTHER USEFUL KEYS
+# ─────────────────────────────────────────────────────────
+#   Ctrl-b ←/↑/→/↓      → move between panes within the current tab
+#   Ctrl-b z            → zoom focused pane to fullscreen (toggle)
+#   Ctrl-b d            → detach (everything keeps running; re-attach with `dashboard`)
 
 SESSION="dashboard"
 
@@ -31,17 +44,17 @@ fi
 
 _split() { tmux split-window -P -F '#{pane_id}' "$@"; }
 
-# Create with a comfortable initial size; tmux resizes on client attach.
-tmux new-session -d -s "$SESSION" -n "main" -x 280 -y 80 "claude"
-claude_id=$(tmux list-panes -t "$SESSION:main" -F '#{pane_id}' | head -1)
+# ── Window 1: "ai"  (just Claude) ───────────────────────────────
+tmux new-session -d -s "$SESSION" -n "ai" -x 280 -y 80 "claude"
 
-# Bottom strip: btop (25 % of total height).
-btop_id=$(_split   -v -p 25 -t "$claude_id" "btop")
+# ── Window 2: "system" (btop big-left, fastfetch + yazi right) ──
+tmux new-window -t "$SESSION:" -n "system" "btop"
+btop_id=$(tmux list-panes -t "$SESSION:system" -F '#{pane_id}' | head -1)
 
-# Top row: Claude | Codex | Gemini.
-codex_id=$(_split  -h -p 66 -t "$claude_id" "codex")
-gemini_id=$(_split -h -p 50 -t "$codex_id"  "gemini")
+ff_id=$(_split   -h -p 50 -t "$btop_id" \
+  "while :; do clear; fastfetch; sleep 600; done")
+yazi_id=$(_split -v -p 60 -t "$ff_id" "yazi $HOME")
 
-# Focus Claude (top-left), attach.
-tmux select-pane -t "$claude_id"
+# Land on the AI tab (Claude) on first attach.
+tmux select-window -t "$SESSION:ai"
 exec tmux attach -t "$SESSION"
