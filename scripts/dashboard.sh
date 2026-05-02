@@ -56,15 +56,20 @@ printf '\033[1;36m▶\033[0m starting dashboard in %s\n' "$WORK_DIR"
 _split() { tmux split-window -P -F '#{pane_id}' "$@"; }
 
 # ── Window 1: "ai" — Claude+Codex on top, sessions strip across bottom
-# Order matters: split bottom strip BEFORE splitting the top horizontally,
-# so the strip spans the full window width.
-tmux new-session -d -s "$SESSION" -n "ai" -c "$WORK_DIR" -x 280 -y 80 "claude"
+# Each AI pane runs `tms-ai-pane <tool>` which shows ITS OWN dir picker
+# first, so Claude and Codex can be on totally different projects.
+# Split order: bottom strip first (so it spans full width), then split top.
+tmux new-session -d -s "$SESSION" -n "ai" -c "$WORK_DIR" -x 280 -y 80 \
+  "$HOME/.local/bin/tms-ai-pane claude"
 claude_id=$(tmux list-panes -t "$SESSION:ai" -F '#{pane_id}' | head -1)
-# 1. Bottom strip (full width) — pulls 30 % off the bottom of claude's full-width pane
+
+# 1. Bottom strip (full width)
 sessions_id=$(_split -v -p 30 -c "$WORK_DIR" -t "$claude_id" \
               "TMUX_SESSION=$SESSION '$HOME/.local/bin/tms-sessions'")
-# 2. Now split the (still-full-width) claude top pane horizontally for codex
-codex_id=$(_split    -h -p 50 -c "$WORK_DIR" -t "$claude_id" "codex")
+
+# 2. Codex (top-right) — also gets its own dir picker
+codex_id=$(_split    -h -p 50 -c "$WORK_DIR" -t "$claude_id" \
+              "$HOME/.local/bin/tms-ai-pane codex")
 
 # Stash pane IDs in tmux session env so tms-sessions can find them.
 tmux set-environment -t "$SESSION" '@claude_pane' "$claude_id"

@@ -34,9 +34,10 @@ shell-integration = detect
 shell-integration-features = cursor,sudo,title
 
 # ── Startup ──────────────────────────────────────────────────────────
-# Every new Ghostty window opens with the dir picker → dashboard.
-# Comment out to get a plain shell instead.
-command = /bin/zsh -ic "tms-launcher"
+# Ghostty opens with a normal shell. Type `dashboard` to launch the
+# 2-tab session (each AI pane will then ask for its own directory).
+# Uncomment to auto-launch a global picker on every open:
+#   command = /bin/zsh -ic "tms-launcher"
 
 # ── Keybinds ─────────────────────────────────────────────────────────
 keybind = cmd+t=new_tab

@@ -129,6 +129,9 @@ else
     [ -f "$REPO_DIR/scripts/sessions.sh" ] && \
       run "install -m 0755 '$REPO_DIR/scripts/sessions.sh' '$HOME/.local/bin/tms-sessions'" && \
       ok "  tms-sessions installed (recent Claude/Codex picker)"
+    [ -f "$REPO_DIR/scripts/ai-pane.sh" ] && \
+      run "install -m 0755 '$REPO_DIR/scripts/ai-pane.sh' '$HOME/.local/bin/tms-ai-pane'" && \
+      ok "  tms-ai-pane installed (per-pane dir picker)"
   fi
 
   # ── shell wiring (zsh) ──────────────────────────────────────────────
